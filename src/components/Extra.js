@@ -55,8 +55,8 @@ function FormikContainer() {
             label="Area"
             options={AreaOptions}
           />
-          {/* <FormikControl control="date" name="startDate" label="Start Date" /> */}
-          {/* <FormikControl control="date" name="endDate" label="End Date" /> */}
+          <FormikControl control="date" name="startDate" label="Start Date" />
+          <FormikControl control="date" name="endDate" label="End Date" />
           <button type="submit" className="btn btn-primary my-3">
             Add
           </button>
