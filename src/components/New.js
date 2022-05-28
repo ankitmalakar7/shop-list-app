@@ -1,26 +1,26 @@
 import React, { useState, Fragment } from "react";
 import EditableRow from "./EditableRow";
-// import { nanoid } from "nanoid";
 import ReadOnlyRow from "./ReadOnlyRow";
-// import EditableRow from "./components/EditableRow";
 
 const New = () => {
-  const [contacts, setContacts] = useState([]);
+  const [datas, setDatas] = useState([]);
   const [addFormData, setAddFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    shopName: "",
+    area: "",
+    category: "",
+    startDate: "",
+    endDate: "",
   });
 
   const [editFormData, setEditFormData] = useState({
-    fullName: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
+    shopName: "",
+    area: "",
+    category: "",
+    startDate: "",
+    endDate: "",
   });
 
-  const [editContactId, setEditContactId] = useState(null);
+  const [editDataId, setEditDataId] = useState(null);
 
   const handleAddFormChange = (event) => {
     event.preventDefault();
@@ -49,135 +49,161 @@ const New = () => {
   const handleAddFormSubmit = (event) => {
     event.preventDefault();
 
-    const newContact = {
-      //   id: nanoid(),
-      fullName: addFormData.fullName,
-      address: addFormData.address,
-      phoneNumber: addFormData.phoneNumber,
-      email: addFormData.email,
+    const newData = {
+      shopName: addFormData.shopName,
+      area: addFormData.area,
+      category: addFormData.category,
+      startDate: addFormData.startDate,
+      endDate: addFormData.endDate,
     };
-
-    const newContacts = [...contacts, newContact];
-    setContacts(newContacts);
+    if (newData.endDate < newData.startDate) {
+      alert("End Date must be greater than Start Date");
+    } else {
+      const newDatas = [...datas, newData];
+      setDatas(newDatas);
+    }
   };
 
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
 
     const editedContact = {
-      id: editContactId,
-      fullName: editFormData.fullName,
-      address: editFormData.address,
-      phoneNumber: editFormData.phoneNumber,
-      email: editFormData.email,
+      id: editDataId,
+      shopName: editFormData.shopName,
+      area: editFormData.area,
+      category: editFormData.category,
+      startDate: editFormData.startDate,
+      endDate: editFormData.endDate,
     };
-
-    const newContacts = [...contacts];
-
-    const index = contacts.findIndex((contact) => contact.id === editContactId);
-
-    newContacts[index] = editedContact;
-
-    setContacts(newContacts);
-    setEditContactId(null);
+    const newDatas = [...datas];
+    const index = datas.findIndex((data) => data.id === editDataId);
+    newDatas[index] = editedContact;
+    setDatas(newDatas);
+    setEditDataId(null);
   };
 
-  const handleEditClick = (event, contact) => {
+  const handleEditClick = (event, data) => {
     event.preventDefault();
-    setEditContactId(contact.id);
-
+    setEditDataId(data.id);
     const formValues = {
-      fullName: contact.fullName,
-      address: contact.address,
-      phoneNumber: contact.phoneNumber,
-      email: contact.email,
+      shopName: data.shopName,
+      area: data.area,
+      category: data.category,
+      startDate: data.startDate,
+      endDate: data.endDate,
     };
-
     setEditFormData(formValues);
   };
-
   const handleCancelClick = () => {
-    setEditContactId(null);
+    setEditDataId(null);
   };
-
-  const handleDeleteClick = (contactId) => {
-    const newContacts = [...contacts];
-
-    const index = contacts.findIndex((contact) => contact.id === contactId);
-
-    newContacts.splice(index, 1);
-
-    setContacts(newContacts);
+  const handleDeleteClick = (dataId) => {
+    const newDatas = [...datas];
+    const index = datas.findIndex((data) => data.id === dataId);
+    newDatas.splice(index, 1);
+    setDatas(newDatas);
   };
-
   return (
-    <div className="app-container">
-      <form onSubmit={handleEditFormSubmit}>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Phone Number</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts.map((contact) => (
-              <Fragment>
-                {editContactId === contact.id ? (
-                  <EditableRow
-                    editFormData={editFormData}
-                    handleEditFormChange={handleEditFormChange}
-                    handleCancelClick={handleCancelClick}
-                  />
-                ) : (
-                  <ReadOnlyRow
-                    contact={contact}
-                    handleEditClick={handleEditClick}
-                    handleDeleteClick={handleDeleteClick}
-                  />
-                )}
-              </Fragment>
-            ))}
-          </tbody>
-        </table>
-      </form>
-
-      <h2>Add a Contact</h2>
-      <form onSubmit={handleAddFormSubmit}>
-        <input
-          type="text"
-          name="fullName"
-          required="required"
-          placeholder="Enter a name..."
-          onChange={handleAddFormChange}
-        />
-        <input
-          type="text"
-          name="address"
-          required="required"
-          placeholder="Enter an addres..."
-          onChange={handleAddFormChange}
-        />
-        <input
-          type="text"
-          name="phoneNumber"
-          required="required"
-          placeholder="Enter a phone number..."
-          onChange={handleAddFormChange}
-        />
-        <input
-          type="email"
-          name="email"
-          required="required"
-          placeholder="Enter an email..."
-          onChange={handleAddFormChange}
-        />
-        <button type="submit">Add</button>
-      </form>
-    </div>
+    <>
+      <div className="container">
+        <form onSubmit={handleEditFormSubmit}>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Area</th>
+                <th>Category</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {datas.map((data) => (
+                <Fragment>
+                  {editDataId === data.id ? (
+                    <EditableRow
+                      editFormData={editFormData}
+                      handleEditFormChange={handleEditFormChange}
+                      handleCancelClick={handleCancelClick}
+                    />
+                  ) : (
+                    <ReadOnlyRow
+                      data={data}
+                      handleEditClick={handleEditClick}
+                      handleDeleteClick={handleDeleteClick}
+                    />
+                  )}
+                </Fragment>
+              ))}
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <div className="cont">
+        <h2>Add a Shop</h2>
+        <form onSubmit={handleAddFormSubmit}>
+          <h6>Enter Shop Name</h6>
+          <input
+            type="text"
+            name="shopName"
+            required="required"
+            placeholder="Enter a name..."
+            onChange={handleAddFormChange}
+            pattern="^[a-zA-Z]+$"
+          />
+          <h6>Enter Shop Area</h6>
+          <select name="area" id="area" onChange={handleAddFormChange} required>
+            <option value="">None</option>
+            <option value="thane">Thane</option>
+            <option value="pune">Pune</option>
+            <option value="mumbai suburban">Mumbai Suburban</option>
+            <option value="nashik">Nashik</option>
+            <option value="nagpur">Nagpur</option>
+            <option value="ahmednagar">Ahmednagar</option>
+            <option value="solapur">Solapur</option>
+          </select>
+          <h6>Enter Shop Category</h6>
+          <select
+            name="category"
+            id="category"
+            onChange={handleAddFormChange}
+            required
+          >
+            <option value="">None</option>
+            <option value="grocery">Grocery</option>
+            <option value="butcher">Butcher</option>
+            <option value="baker">Baker</option>
+            <option value="chemist">Chemist</option>
+            <option value="stationery shop">Stationery Shop</option>
+          </select>
+          <h6>Enter Shop Starting Date</h6>
+          <input
+            type="date"
+            name="startDate"
+            required="required"
+            placeholder="Enter an startDate..."
+            onChange={handleAddFormChange}
+            value={addFormData.startDate}
+          />
+          <h6>Enter Shop End Date</h6>
+          <input
+            type="date"
+            name="endDate"
+            required="required"
+            placeholder="Enter an End Date..."
+            min={editFormData.startDate}
+            onChange={handleAddFormChange}
+            value={addFormData.endDate}
+          />
+          <div className="my-4">
+            <button type="submit" className="btn btn-sm btn-primary">
+              Add
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

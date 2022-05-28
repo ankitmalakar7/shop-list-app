@@ -11,7 +11,7 @@ function ReadOnlyRowz({ d, handleEditClick, handleDeleteClick }) {
         <td>{d.endDate}</td>
         <td>
           <button type="button" onClick={(event) => handleEditClick(event, d)}>
-            Edit
+            <i class="fa-solid fa-pen-to-square"></i>
           </button>
           <button type="button" onClick={() => handleDeleteClick(d.id)}>
             Delete

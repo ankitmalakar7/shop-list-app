@@ -10,42 +10,54 @@ const EditableRow = ({
       <td>
         <input
           type="text"
+          name="shopName"
           required="required"
           placeholder="Enter a name..."
-          name="fullName"
-          value={editFormData.fullName}
+          value={editFormData.shopName}
           onChange={handleEditFormChange}
-        ></input>
+          pattern="^[a-zA-Z]+$"
+        />
       </td>
       <td>
         <input
           type="text"
+          name="area"
           required="required"
-          placeholder="Enter an address..."
-          name="address"
-          value={editFormData.address}
+          placeholder="Enter the area..."
+          value={editFormData.area}
           onChange={handleEditFormChange}
-        ></input>
+        />
       </td>
       <td>
         <input
           type="text"
+          name="category"
           required="required"
-          placeholder="Enter a phone number..."
-          name="phoneNumber"
-          value={editFormData.phoneNumber}
+          placeholder="Enter the category..."
+          value={editFormData.category}
           onChange={handleEditFormChange}
-        ></input>
+        />
       </td>
       <td>
         <input
-          type="email"
+          type="date"
+          name="startDate"
           required="required"
-          placeholder="Enter an email..."
-          name="email"
-          value={editFormData.email}
+          placeholder="Enter a startDate..."
+          value={editFormData.startDate}
           onChange={handleEditFormChange}
-        ></input>
+        />
+      </td>
+      <td>
+        <input
+          type="date"
+          name="endDate"
+          required="required"
+          placeholder="Enter an End Date..."
+          value={editFormData.endDate}
+          onChange={handleEditFormChange}
+          min={editFormData.startDate}
+        />
       </td>
       <td>
         <button type="submit">Save</button>
