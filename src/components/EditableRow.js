@@ -19,24 +19,38 @@ const EditableRow = ({
         />
       </td>
       <td>
-        <input
-          type="text"
+        <select
           name="area"
-          required="required"
-          placeholder="Enter the area..."
+          id="area"
           value={editFormData.area}
           onChange={handleEditFormChange}
-        />
+          required
+        >
+          <option value="">None</option>
+          <option value="thane">Thane</option>
+          <option value="pune">Pune</option>
+          <option value="mumbai suburban">Mumbai Suburban</option>
+          <option value="nashik">Nashik</option>
+          <option value="nagpur">Nagpur</option>
+          <option value="ahmednagar">Ahmednagar</option>
+          <option value="solapur">Solapur</option>
+        </select>
       </td>
       <td>
-        <input
-          type="text"
+        <select
           name="category"
-          required="required"
-          placeholder="Enter the category..."
+          id="category"
           value={editFormData.category}
           onChange={handleEditFormChange}
-        />
+          required
+        >
+          <option value="">None</option>
+          <option value="grocery">Grocery</option>
+          <option value="butcher">Butcher</option>
+          <option value="baker">Baker</option>
+          <option value="chemist">Chemist</option>
+          <option value="stationery shop">Stationery Shop</option>
+        </select>
       </td>
       <td>
         <input
